@@ -56,6 +56,30 @@
 Результат выполнения команд представлен на скриншоте. Команды выделены красным:
 <img src='images/checkreleases.png'/>
 
+### Установка Helm
+
+#### Способ 1
+
+- Скачиваем скрипт get_helm.sh:
+   ```curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3```
+- Выставляем права доступа на запуск скрипта:
+   ```chmod 700 get_helm.sh```
+- Запускаем скрипт находясь в текущей папке скрипта:
+   ```./get_helm.sh```
+
+#### Способ 2
+
+- Скачиваем ключ в папку **/etc/apt/keyrings**:
+   ```curl https://baltocdn.com/helm/signing.asc | sudo gpg --dearmor -o /etc/apt/keyrings/helm.gpg```
+- Прописываем ключ и путь до репозитория в папке **/etc/apt/sources.list.d**:
+  ```echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/helm.gpg] https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list```
+
+- Устанавливаем обязательный пакет:
+  ```sudo apt-get install apt-transport-https -y```
+
+- Устанавливаем helm:
+   ```apt install helm -y```
+
 ### Дополнительая публикация helm-чарта в репозиторий gitlab
 
 1. Необходимо установить плагин helm, чтобы появилась возможность вызывать команду публикации чартов ```helm cm-push```. Установка последней версии плагина выполняется командой:
