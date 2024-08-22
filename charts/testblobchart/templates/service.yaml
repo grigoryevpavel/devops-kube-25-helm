@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "testblobchart.fullname" . }}
+  labels:
+    {{- include "testblobchart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.containerport }}
+      protocol: TCP
+      name: http
+      {{- if .Values.service.nodeport -}} {{
+      nodePort: {{ .Values.service.nodeport }}
+      {{- end -}}
+  selector:
+    {{- include "testblobchart.selectorLabels" . | nindent 4 }}
